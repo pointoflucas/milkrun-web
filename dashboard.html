@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Milkrun Dashboard</title>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "your-project-id.firebaseapp.com",
+      projectId: "your-project-id",
+      appId: "your-app-id"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "index.html";
+      }
+    });
+
+    window.logout = function () {
+      signOut(auth).then(() => window.location.href = "index.html");
+    };
+  </script>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 50px; }
+    button { margin: 10px; padding: 15px 30px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Milkrun Platform</h1>
+  <button onclick="location.href='milkrun.html'">Run Milkrun Project</button>
+  <button onclick="location.href='team.html'">View Team</button>
+  <br><br>
+  <button onclick="logout()">Logout</button>
+</body>
+</html>
